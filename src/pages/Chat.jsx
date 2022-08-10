@@ -22,17 +22,17 @@ function Chat(){
   const navigate = useNavigate();
 
   useEffect(()=> {
-    const fetchData = async ()=>{
+    const fetchData = async () => {
       if (!localStorage.getItem("convo-users")) {
         navigate("/login");
       } else {
         setCurrentUser(await JSON.parse(localStorage.getItem("convo-users")));
         setIsLoaded(true);
       }
-    }
+    };
 
     fetchData();
-
+    // eslint-disable-next-line
   },[])
 
   
@@ -51,18 +51,17 @@ function Chat(){
 
   useEffect(()=>{
     const checkData = async () => {
-      if(currentUser){
-        if(currentUser.isAvatarImageSet){
+      if (currentUser) {
+        if (currentUser.isAvatarImageSet) {
           const data = await axios.get(`${allUsersRoute}/${currentUser._id}`);
-          setContacts(data.data)
-        }
-        else {
-          navigate("/setAvatar")
+          setContacts(data.data);
+        } else {
+          navigate("/setAvatar");
         }
       }
-    }
+    };
     checkData();
-
+    // eslint-disable-next-line
   },[currentUser])
 
   const handleChatChange = (chat) => {

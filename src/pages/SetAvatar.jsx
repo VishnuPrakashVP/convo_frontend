@@ -28,9 +28,10 @@ export default function SetAvatar() {
     };
 
     useEffect(()=>{
-        if (!localStorage.getItem("convo-users")) {
-          navigate("/login");
-        }
+      if (!localStorage.getItem("convo-users")) {
+        navigate("/login");
+      }
+      // eslint-disable-next-line
     },[])
 
     const setProfilePicture = async () => {
@@ -61,23 +62,22 @@ export default function SetAvatar() {
 
     
     useEffect(() => {
-        const fetchData = async ()=> {
-            const data = [];
-            for (let i = 0; i < 4; i++) {
-              const image = await axios.get(
-                `${api}/${Math.round(Math.random() * 1000)}`
-              );
+      const fetchData = async () => {
+        const data = [];
+        for (let i = 0; i < 4; i++) {
+          const image = await axios.get(
+            `${api}/${Math.round(Math.random() * 1000)}`
+          );
 
-              const buffer = new Buffer(image.data);
-              data.push(buffer.toString("base64"));
-            }
-            setAvatars(data);
-            setIsLoading(false);
+          const buffer = new Buffer(image.data);
+          data.push(buffer.toString("base64"));
         }
+        setAvatars(data);
+        setIsLoading(false);
+      };
 
-        fetchData();
-
-        
+      fetchData();
+      // eslint-disable-next-line
     },[])
 
 

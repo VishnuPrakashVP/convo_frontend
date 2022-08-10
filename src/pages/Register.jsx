@@ -1,23 +1,19 @@
-import React, {useState, useEffect} from 'react';
-import styled from "styled-components" ;
+import React, { useState } from "react";
+import styled from "styled-components";
 import axios from "axios";
-import {Link, useNavigate} from "react-router-dom";
-import {ToastContainer, toast} from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { images } from '../constants';
-import { registerRoute } from '../utils/APIRoutes';
-
-
-
+import { images } from "../constants";
+import { registerRoute } from "../utils/APIRoutes";
 
 const Register = () => {
-
   const [values, setValues] = useState({
-    username:"",
-    email:"",
-    password:"",
-    confirmPassword:""
-  })
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const toastOptions = {
     position: "bottom-right",
@@ -31,49 +27,44 @@ const Register = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    
-    if (handleValidation()){
+
+    if (handleValidation()) {
       const { password, username, email } = values;
-      const {data} = await axios.post(registerRoute,{
+      const { data } = await axios.post(registerRoute, {
         username,
         email,
-        password
+        password,
       });
 
-      if (data.status === false){
-        toast.error(data.msg, toastOptions)
+      if (data.status === false) {
+        toast.error(data.msg, toastOptions);
       }
-      if (data.status === true){
-        localStorage.setItem("convo-users", JSON.stringify(data.user))
+      if (data.status === true) {
+        localStorage.setItem("convo-users", JSON.stringify(data.user));
       }
       navigate("/");
-      
-      
-    };
-  }
-  const handleChange =(event)=> {
-    setValues({...values, [event.target.name]:event.target.value})
-  }
-  const handleValidation = () => {
-    const {password, confirmPassword, username, email} = values;
-    if(password !== confirmPassword) {
-      toast.error("Password doesn't match", toastOptions)
-      return false;
     }
-    else if(username.length < 3){
+  };
+  const handleChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+  const handleValidation = () => {
+    const { password, confirmPassword, username, email } = values;
+    if (password !== confirmPassword) {
+      toast.error("Password doesn't match", toastOptions);
+      return false;
+    } else if (username.length < 3) {
       toast.error("Username should be more than 3 characters", toastOptions);
       return false;
-    }
-    else if(password.length < 8){
+    } else if (password.length < 8) {
       toast.error("Password should be 8 characters or more");
       return false;
-    }
-    else if(email===""){
-      toast.error("Please enter your Email",toastOptions);
+    } else if (email === "") {
+      toast.error("Please enter your Email", toastOptions);
       return false;
     }
     return true;
-  }
+  };
 
   return (
     <>
@@ -91,14 +82,12 @@ const Register = () => {
             onChange={(e) => handleChange(e)}
           />
 
-
           <input
             type="email"
             placeholder="Email"
             name="email"
             onChange={(event) => handleChange(event)}
           />
-
 
           <input
             type="password"
@@ -114,8 +103,7 @@ const Register = () => {
             onChange={(event) => handleChange(event)}
           />
 
-          <button type='submit'>Create User</button>
-
+          <button type="submit">Create User</button>
 
           <span>
             Already have an account?
@@ -126,7 +114,7 @@ const Register = () => {
       <ToastContainer />
     </>
   );
-}
+};
 
 const FormContainer = styled.div`
   width: 100vw;
@@ -136,16 +124,12 @@ const FormContainer = styled.div`
   align-items: center;
 
   form {
-    @media screen and (max-width: 700px){
-      width:100vw;
+    @media screen and (max-width: 700px) {
+      width: 100vw;
       height: 100vh;
       border-radius: 0px;
       padding: 0.5rem;
-
-
-      
     }
-
 
     display: flex;
     flex-direction: column;
@@ -216,4 +200,4 @@ const FormContainer = styled.div`
   }
 `;
 
-export default Register
+export default Register;

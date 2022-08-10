@@ -1,7 +1,6 @@
  import React, {useState, useEffect} from 'react';
  import styled from "styled-components";
  import { images } from '../constants';
- import Chat from '../pages/Chat';
  
  const Contacts = ({ contacts, currentUser, changeChat }) => {
    const [currentUserName, setCurrentUserName] = useState(undefined);

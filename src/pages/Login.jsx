@@ -24,9 +24,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(()=>{
-    if(localStorage.getItem("convo-users")){
-      navigate("/")
+    if (localStorage.getItem("convo-users")) {
+      navigate("/");
     }
+    // eslint-disable-next-line
   },[])
 
   
